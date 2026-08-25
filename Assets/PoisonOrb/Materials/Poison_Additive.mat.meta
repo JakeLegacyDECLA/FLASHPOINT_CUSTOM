@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 701717a21389dce409d5545593003503
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 389200
+  packageName: Free Poison Orb VFX
+  packageVersion: 1.0
+  assetPath: Assets/PoisonOrb/Materials/Poison_Additive.mat
+  uploadId: 941782
