@@ -4223,6 +4223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1895651758}
+  - component: {fileID: 1895651759}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -4245,6 +4246,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1895651759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895651757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9562fa3473d752c4d8d08e4850475467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
+  tilePrefab: {fileID: 3650988875726054455, guid: 5bb0e881eb2cce141b58e7fc1c15ceff, type: 3}
+  tileSize: 10
+  testJson: {fileID: 4900000, guid: a5a98cab2468cc145b3fcf98457819c0, type: 3}
 --- !u!4 &1910572398 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1839915699823894292, guid: 9bf681da35e5fc2458c66b1936c8795e, type: 3}
@@ -4890,6 +4906,10 @@ PrefabInstance:
     - target: {fileID: 6531029269076131799, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_Name
       value: Overcharged tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531029269076131799, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

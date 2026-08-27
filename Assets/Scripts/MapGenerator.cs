@@ -1,17 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class MapData
-{
-    public int width;
-    public int height;
-}
-
 public class MapGenerator : MonoBehaviour
 {
     [Header("Referencias")]
     public GameObject tilePrefab;   // tu prefab de tile ya cargado
-    public float tileSize = 1f;     // tamaño de cada celda en unidades de Unity
+    public float tileSize = 10f;     // tamaño de cada celda en unidades de Unity
 
     [Header("Debug / pruebas")]
     public TextAsset testJson;      // arrastra aquí un .json de prueba desde el Inspector
