@@ -1,13 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
     [Header("Referencias")]
-    public GameObject tilePrefab;   // tu prefab de tile ya cargado
-    public float tileSize = 10f;     // tamaño de cada celda en unidades de Unity
+    public GameObject tilePrefab;
+    public float tileSize = 1f;
 
     [Header("Debug / pruebas")]
-    public TextAsset testJson;      // arrastra aquí un .json de prueba desde el Inspector
+    public TextAsset testJson;
 
     private GameObject[,] tileGrid;
 
@@ -30,13 +31,12 @@ public class MapGenerator : MonoBehaviour
         }
 
         BuildGrid(data.width, data.height);
+        ApplyCells(data.cells); // <-- línea nueva
     }
 
     private void BuildGrid(int width, int height)
     {
-        // Si ya existe un mapa previo, lo limpiamos primero
         ClearGrid();
-
         tileGrid = new GameObject[width, height];
 
         for (int x = 0; x < width; x++)
@@ -52,6 +52,35 @@ public class MapGenerator : MonoBehaviour
 
         Debug.Log($"Mapa generado: {width} x {height} tiles.");
     }
+
+    // ---- método nuevo ----
+    private void ApplyCells(List<CellData> cells)
+    {
+        if (cells == null) return;
+
+        foreach (CellData cell in cells)
+        {
+            if (cell.x < 0 || cell.x >= tileGrid.GetLength(0) ||
+                cell.y < 0 || cell.y >= tileGrid.GetLength(1))
+            {
+                Debug.LogWarning($"Celda fuera de rango: ({cell.x},{cell.y})");
+                continue;
+            }
+
+            GameObject tileObj = tileGrid[cell.x, cell.y];
+            TileController controller = tileObj.GetComponent<TileController>();
+
+            if (controller != null)
+            {
+                controller.ApplyCellData(cell);
+            }
+            else
+            {
+                Debug.LogWarning($"El prefab de tile no tiene componente TileController.");
+            }
+        }
+    }
+    // ---- fin método nuevo ----
 
     private void ClearGrid()
     {

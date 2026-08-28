@@ -1,1 +1,13 @@
-{ "width": 10, "height": 8 }
+{
+  "width": 1,
+  "height": 1,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "walls": { "up": 4, "down": 4, "left": 1, "right": 0 },
+      "fire": 0,
+      "poi": 0
+    }
+  ]
+}
