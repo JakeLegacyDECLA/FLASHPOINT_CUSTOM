@@ -21,13 +21,16 @@ public class TileController : MonoBehaviour
     public GameObject toxicCloudObj; // smoke (fire == 1)
     public GameObject zombieObj;     // fire (fire == 2)
 
-    [Header("Objetos de POI (ya existen en el prefab)")]
-    public GameObject poiUnknownObj; // exist, no revelado (poi == 1)
-    public GameObject survivorObj;   // victim (poi == 3)
+    [Header("POI desconocido (poi == 1)")]
+    public GameObject poiUnknownObj; // objeto fijo, un solo "?"
+
+    [Header("Variantes de víctima (poi == 3, elige una al azar)")]
+    public GameObject[] poiVictimVariants; // Kitty, Dog, POI1-4, Pinguin, Survivor1...
+
+    private GameObject currentVictimVariant;
 
     private void Awake()
     {
-        // Estado default: todo apagado hasta que llegue data del JSON
         SetWallDefault(up);
         SetWallDefault(down);
         SetWallDefault(left);
@@ -36,7 +39,7 @@ public class TileController : MonoBehaviour
         if (toxicCloudObj != null) toxicCloudObj.SetActive(false);
         if (zombieObj != null) zombieObj.SetActive(false);
         if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
-        if (survivorObj != null) survivorObj.SetActive(false);
+        SetAllVictimVariantsInactive();
     }
 
     public void ApplyCellData(CellData cell)
@@ -63,7 +66,7 @@ public class TileController : MonoBehaviour
     {
         if (wall == null) return;
 
-        SetWallDefault(wall); // apaga todo primero
+        SetWallDefault(wall);
 
         switch (state)
         {
@@ -98,18 +101,36 @@ public class TileController : MonoBehaviour
         }
     }
 
+    private void SetAllVictimVariantsInactive()
+    {
+        if (poiVictimVariants == null) return;
+
+        foreach (GameObject variant in poiVictimVariants)
+        {
+            if (variant != null) variant.SetActive(false);
+        }
+
+        currentVictimVariant = null;
+    }
+
     private void ApplyPoi(int poiState)
     {
         if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
-        if (survivorObj != null) survivorObj.SetActive(false);
+        SetAllVictimVariantsInactive();
 
         if (poiState == 1 && poiUnknownObj != null)
         {
             poiUnknownObj.SetActive(true);
         }
-        else if (poiState == 3 && survivorObj != null)
+        else if (poiState == 3 && poiVictimVariants != null && poiVictimVariants.Length > 0)
         {
-            survivorObj.SetActive(true);
+            int randomIndex = Random.Range(0, poiVictimVariants.Length);
+            currentVictimVariant = poiVictimVariants[randomIndex];
+
+            if (currentVictimVariant != null)
+            {
+                currentVictimVariant.SetActive(true);
+            }
         }
         // poiState == 0 o 2 -> no se activa nada
     }
