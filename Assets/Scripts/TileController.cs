@@ -3,9 +3,10 @@ using UnityEngine;
 [System.Serializable]
 public class WallDirection
 {
-    public GameObject doorWall;    // states 3 y 4
-    public GameObject fullWall;    // state 2 (Wall no door)
-    public GameObject damagedWall; // state 1 (Damaged wall)
+    public GameObject doorOpenWall;   // state 3
+    public GameObject doorClosedWall; // state 4
+    public GameObject fullWall;       // state 2 (Wall no door)
+    public GameObject damagedWall;    // state 1 (Damaged wall)
 }
 
 public class TileController : MonoBehaviour
@@ -43,7 +44,8 @@ public class TileController : MonoBehaviour
         if (wall == null) return;
 
         // Apaga todo primero
-        if (wall.doorWall != null) wall.doorWall.SetActive(false);
+        if (wall.doorOpenWall != null) wall.doorOpenWall.SetActive(false);
+        if (wall.doorClosedWall != null) wall.doorClosedWall.SetActive(false);
         if (wall.fullWall != null) wall.fullWall.SetActive(false);
         if (wall.damagedWall != null) wall.damagedWall.SetActive(false);
 
@@ -57,9 +59,11 @@ public class TileController : MonoBehaviour
             case 2: // pared 2 vida
                 if (wall.fullWall != null) wall.fullWall.SetActive(true);
                 break;
-            case 3: // puerta abierta (por ahora igual a cerrada)
+            case 3: // puerta abierta
+                if (wall.doorOpenWall != null) wall.doorOpenWall.SetActive(true);
+                break;
             case 4: // puerta cerrada
-                if (wall.doorWall != null) wall.doorWall.SetActive(true);
+                if (wall.doorClosedWall != null) wall.doorClosedWall.SetActive(true);
                 break;
         }
     }

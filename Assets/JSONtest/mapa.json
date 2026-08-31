@@ -5,7 +5,7 @@
     {
       "x": 0,
       "y": 0,
-      "walls": { "up": 4, "down": 4, "left": 1, "right": 0 },
+      "walls": { "up": 2, "down": 3, "left": 4, "right": 0 },
       "fire": 2,
       "poi": 3
     }
