@@ -4305,10 +4305,10 @@ MonoBehaviour:
     doorClosedWall: {fileID: 749483757}
     fullWall: {fileID: 1661930939}
     damagedWall: {fileID: 227710853}
-  toxicCloudPrefab: {fileID: 642581815}
-  zombiePrefab: {fileID: 524118147}
-  poiUnknownPrefab: {fileID: 730071776}
-  poiVictimPrefab: {fileID: 1409359000}
+  toxicCloudObj: {fileID: 642581815}
+  zombieObj: {fileID: 524118147}
+  poiUnknownObj: {fileID: 730071776}
+  survivorObj: {fileID: 1409359000}
 --- !u!4 &1390414791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 653449484278502468, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
@@ -6398,11 +6398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6703892837027801752, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7810911561769316917, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8456458713093090619, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_IsActive
@@ -6410,7 +6410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8798932643273047621, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

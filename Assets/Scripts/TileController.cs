@@ -3,10 +3,10 @@ using UnityEngine;
 [System.Serializable]
 public class WallDirection
 {
-    public GameObject doorOpenWall;   // state 3
-    public GameObject doorClosedWall; // state 4
-    public GameObject fullWall;       // state 2 (Wall no door)
-    public GameObject damagedWall;    // state 1 (Damaged wall)
+    public GameObject doorOpenWall;
+    public GameObject doorClosedWall;
+    public GameObject fullWall;
+    public GameObject damagedWall;
 }
 
 public class TileController : MonoBehaviour
@@ -17,16 +17,27 @@ public class TileController : MonoBehaviour
     public WallDirection left;
     public WallDirection right;
 
-    [Header("Prefabs de estado de fuego")]
-    public GameObject toxicCloudPrefab; // smoke (fire == 1)
-    public GameObject zombiePrefab;     // fire (fire == 2)
+    [Header("Objetos de fuego (ya existen en el prefab)")]
+    public GameObject toxicCloudObj; // smoke (fire == 1)
+    public GameObject zombieObj;     // fire (fire == 2)
 
-    [Header("Prefabs de POI")]
-    public GameObject poiUnknownPrefab; // exist, no revelado
-    public GameObject poiVictimPrefab;
+    [Header("Objetos de POI (ya existen en el prefab)")]
+    public GameObject poiUnknownObj; // exist, no revelado (poi == 1)
+    public GameObject survivorObj;   // victim (poi == 3)
 
-    private GameObject currentFireObj;
-    private GameObject currentPoiObj;
+    private void Awake()
+    {
+        // Estado default: todo apagado hasta que llegue data del JSON
+        SetWallDefault(up);
+        SetWallDefault(down);
+        SetWallDefault(left);
+        SetWallDefault(right);
+
+        if (toxicCloudObj != null) toxicCloudObj.SetActive(false);
+        if (zombieObj != null) zombieObj.SetActive(false);
+        if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
+        if (survivorObj != null) survivorObj.SetActive(false);
+    }
 
     public void ApplyCellData(CellData cell)
     {
@@ -39,30 +50,34 @@ public class TileController : MonoBehaviour
         ApplyPoi(cell.poi);
     }
 
-    private void ApplyWall(WallDirection wall, int state)
+    private void SetWallDefault(WallDirection wall)
     {
         if (wall == null) return;
-
-        // Apaga todo primero
         if (wall.doorOpenWall != null) wall.doorOpenWall.SetActive(false);
         if (wall.doorClosedWall != null) wall.doorClosedWall.SetActive(false);
         if (wall.fullWall != null) wall.fullWall.SetActive(false);
         if (wall.damagedWall != null) wall.damagedWall.SetActive(false);
+    }
+
+    private void ApplyWall(WallDirection wall, int state)
+    {
+        if (wall == null) return;
+
+        SetWallDefault(wall); // apaga todo primero
 
         switch (state)
         {
-            case 0: // libre - todo queda apagado
-                break;
-            case 1: // pared 1 vida
+            case 0: break; // libre
+            case 1:
                 if (wall.damagedWall != null) wall.damagedWall.SetActive(true);
                 break;
-            case 2: // pared 2 vida
+            case 2:
                 if (wall.fullWall != null) wall.fullWall.SetActive(true);
                 break;
-            case 3: // puerta abierta
+            case 3:
                 if (wall.doorOpenWall != null) wall.doorOpenWall.SetActive(true);
                 break;
-            case 4: // puerta cerrada
+            case 4:
                 if (wall.doorClosedWall != null) wall.doorClosedWall.SetActive(true);
                 break;
         }
@@ -70,37 +85,32 @@ public class TileController : MonoBehaviour
 
     private void ApplyFire(int fireState)
     {
-        if (currentFireObj != null)
-        {
-            Destroy(currentFireObj);
-            currentFireObj = null;
-        }
+        if (toxicCloudObj != null) toxicCloudObj.SetActive(false);
+        if (zombieObj != null) zombieObj.SetActive(false);
 
-        if (fireState == 1 && toxicCloudPrefab != null)
+        if (fireState == 1 && toxicCloudObj != null)
         {
-            currentFireObj = Instantiate(toxicCloudPrefab, transform.position, Quaternion.identity, transform);
+            toxicCloudObj.SetActive(true);
         }
-        else if (fireState == 2 && zombiePrefab != null)
+        else if (fireState == 2 && zombieObj != null)
         {
-            currentFireObj = Instantiate(zombiePrefab, transform.position, Quaternion.identity, transform);
+            zombieObj.SetActive(true);
         }
     }
 
     private void ApplyPoi(int poiState)
     {
-        if (currentPoiObj != null)
-        {
-            Destroy(currentPoiObj);
-            currentPoiObj = null;
-        }
+        if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
+        if (survivorObj != null) survivorObj.SetActive(false);
 
-        if (poiState == 1 && poiUnknownPrefab != null)
+        if (poiState == 1 && poiUnknownObj != null)
         {
-            currentPoiObj = Instantiate(poiUnknownPrefab, transform.position, Quaternion.identity, transform);
+            poiUnknownObj.SetActive(true);
         }
-        else if (poiState == 3 && poiVictimPrefab != null)
+        else if (poiState == 3 && survivorObj != null)
         {
-            currentPoiObj = Instantiate(poiVictimPrefab, transform.position, Quaternion.identity, transform);
+            survivorObj.SetActive(true);
         }
+        // poiState == 0 o 2 -> no se activa nada
     }
 }
