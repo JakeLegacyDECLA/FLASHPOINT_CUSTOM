@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 pos = new Vector3(x * tileSize, 0f, y * tileSize);
+                Vector3 pos = new Vector3(x * tileSize, 0f, -y * tileSize); // <-- cambio: signo negativo en Z
                 GameObject tile = Instantiate(tilePrefab, pos, Quaternion.identity, transform);
                 tile.name = $"Tile_{x}_{y}";
                 tileGrid[x, y] = tile;

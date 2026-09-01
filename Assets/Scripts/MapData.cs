@@ -17,6 +17,8 @@ public class CellData
     public WallsData walls;
     public int fire; // 0=empty, 1=smoke, 2=fire
     public int poi;  // 0=none, 1=exist(no revelado), 2=empty(falsa alarma), 3=victim
+    public bool firefighter; // true = hay un bombero parado en este tile
+
 }
 
 [System.Serializable]

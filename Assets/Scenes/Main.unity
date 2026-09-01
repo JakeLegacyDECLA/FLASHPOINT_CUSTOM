@@ -606,6 +606,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8385121201471419824, guid: daa7deb9166ef1847a7f2af59e00e0cd, type: 3}
   m_PrefabInstance: {fileID: 150198201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &151625763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3054373086272808234, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
+  m_PrefabInstance: {fileID: 5064292532544971047}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &153646346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4103,7 +4108,7 @@ Transform:
   m_GameObject: {fileID: 1309306602}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 54.2, y: 19.8, z: -5}
+  m_LocalPosition: {x: 94.9, y: 66.5, z: 32.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4325,6 +4330,7 @@ MonoBehaviour:
   - {fileID: 1938690587}
   - {fileID: 562339565}
   - {fileID: 1562618101}
+  firefighterObj: {fileID: 151625763}
 --- !u!4 &1390414791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 653449484278502468, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}

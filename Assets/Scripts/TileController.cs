@@ -27,6 +27,9 @@ public class TileController : MonoBehaviour
     [Header("Variantes de víctima (poi == 3, elige una al azar)")]
     public GameObject[] poiVictimVariants; // Kitty, Dog, POI1-4, Pinguin, Survivor1...
 
+    [Header("Bombero (firefighter == true)")]
+    public GameObject firefighterObj;
+
     private GameObject currentVictimVariant;
 
     private void Awake()
@@ -39,6 +42,7 @@ public class TileController : MonoBehaviour
         if (toxicCloudObj != null) toxicCloudObj.SetActive(false);
         if (zombieObj != null) zombieObj.SetActive(false);
         if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
+        if (firefighterObj != null) firefighterObj.SetActive(false);
         SetAllVictimVariantsInactive();
     }
 
@@ -51,6 +55,7 @@ public class TileController : MonoBehaviour
 
         ApplyFire(cell.fire);
         ApplyPoi(cell.poi);
+        ApplyFirefighter(cell.firefighter);
     }
 
     private void SetWallDefault(WallDirection wall)
@@ -133,5 +138,13 @@ public class TileController : MonoBehaviour
             }
         }
         // poiState == 0 o 2 -> no se activa nada
+    }
+
+    private void ApplyFirefighter(bool hasFirefighter)
+    {
+        if (firefighterObj != null)
+        {
+            firefighterObj.SetActive(hasFirefighter);
+        }
     }
 }
