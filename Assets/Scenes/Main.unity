@@ -2514,11 +2514,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1839915699823894292, guid: 9bf681da35e5fc2458c66b1936c8795e, type: 3}
   m_PrefabInstance: {fileID: 146482027}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &730071776 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6703892837027801752, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
-  m_PrefabInstance: {fileID: 5064292532544971047}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &749483757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2029325039431246884, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
@@ -4347,7 +4342,7 @@ MonoBehaviour:
     damagedWall: {fileID: 227710853}
   toxicCloudObj: {fileID: 642581815}
   zombieObj: {fileID: 524118147}
-  poiUnknownObj: {fileID: 730071776}
+  poiUnknownObj: {fileID: 264220364}
   poiVictimVariants:
   - {fileID: 415151157}
   - {fileID: 1538908654}
@@ -5360,12 +5355,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1405706347}
     m_Modifications:
     - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.12
+      value: 1.32
       objectReference: {fileID: 0}
     - target: {fileID: 2359843829121550200, guid: 665cc4af457cf3340bdc625c6b87a9a3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6585,7 +6592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6703892837027801752, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6719016487881426640, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
       propertyPath: m_LocalScale.x
