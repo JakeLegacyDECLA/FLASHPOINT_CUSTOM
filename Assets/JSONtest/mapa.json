@@ -156,7 +156,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "firefighter": true
     },
     {
       "x": 1,
@@ -181,7 +181,7 @@
         "right": 0
       },
       "fire": 0,
-      "poi": 1,
+      "poi": 0,
       "firefighter": false
     },
     {
