@@ -1,6 +1,11 @@
 {
+  "turn": 3,
   "width": 10,
   "height": 8,
+  "buildingDamage": 6,
+  "saved": 2,
+  "lost": 1,
+  "focus": -1,
   "cells": [
     {
       "x": 0,
@@ -156,7 +161,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": true
+      "firefighter": false
     },
     {
       "x": 1,
@@ -181,7 +186,7 @@
         "right": 0
       },
       "fire": 0,
-      "poi": 0,
+      "poi": 1,
       "firefighter": false
     },
     {

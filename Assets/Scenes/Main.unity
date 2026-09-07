@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 97417382}
   - component: {fileID: 97417381}
   m_Layer: 5
-  m_Name: Truno
+  m_Name: Turno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2763,6 +2763,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1839915699823894292, guid: 9bf681da35e5fc2458c66b1936c8795e, type: 3}
   m_PrefabInstance: {fileID: 477170897}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &474013540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 474013542}
+  - component: {fileID: 474013541}
+  m_Layer: 0
+  m_Name: HudManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &474013541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474013540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186ae25fe4079f94a89816842a4f0c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HudController
+  turnoText: {fileID: 305726091}
+  danioText: {fileID: 2015937653}
+  rescatadosIcons:
+  - {fileID: 61560105}
+  - {fileID: 1558776617}
+  - {fileID: 1003433905}
+  - {fileID: 2120655527}
+  - {fileID: 538964037}
+  - {fileID: 1746008579}
+  - {fileID: 731766308}
+  infectadosIcons:
+  - {fileID: 1454964948}
+  - {fileID: 1331484704}
+  - {fileID: 1371375555}
+  - {fileID: 621517292}
+--- !u!4 &474013542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474013540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.68667, y: 4.95099, z: 7.76575}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &477170897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4788,6 +4847,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8385121201471419824, guid: daa7deb9166ef1847a7f2af59e00e0cd, type: 3}
   m_PrefabInstance: {fileID: 955327073}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &966425709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 966425711}
+  - component: {fileID: 966425710}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &966425710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966425709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e2f09178d05741bf163082f0823ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  mapGenerator: {fileID: 1895651759}
+  hudController: {fileID: 474013541}
+  testJson: {fileID: 4900000, guid: a5a98cab2468cc145b3fcf98457819c0, type: 3}
+--- !u!4 &966425711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966425709}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.68667, y: 4.95099, z: 7.76575}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973641534
 GameObject:
   m_ObjectHideFlags: 0
@@ -8929,7 +9035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   tilePrefab: {fileID: 1390414788}
   tileSize: 10
-  testJson: {fileID: 4900000, guid: a5a98cab2468cc145b3fcf98457819c0, type: 3}
+  testJson: {fileID: 0}
 --- !u!4 &1910572398 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1839915699823894292, guid: 9bf681da35e5fc2458c66b1936c8795e, type: 3}
@@ -10074,3 +10180,5 @@ SceneRoots:
   - {fileID: 1895651758}
   - {fileID: 873839923}
   - {fileID: 1546144497}
+  - {fileID: 474013542}
+  - {fileID: 966425711}
