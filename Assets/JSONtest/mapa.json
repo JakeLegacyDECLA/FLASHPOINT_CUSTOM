@@ -1,10 +1,10 @@
 {
-  "turn": 3,
+  "turn": 9,
   "width": 10,
   "height": 8,
   "buildingDamage": 6,
-  "saved": 2,
-  "lost": 1,
+  "saved": 4,
+  "lost": 2,
   "focus": -1,
   "cells": [
     {
