@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -27,7 +28,7 @@ public class TileController : MonoBehaviour
     [Header("Variantes de víctima (poi == 3, elige una al azar)")]
     public GameObject[] poiVictimVariants; // Kitty, Dog, POI1-4, Pinguin, Survivor1...
 
-    [Header("Bombero (firefighter == true)")]
+    [Header("Bombero (se activa si hay al menos un agentId en la tile)")]
     public GameObject firefighterObj;
 
     private GameObject currentVictimVariant;
@@ -55,7 +56,7 @@ public class TileController : MonoBehaviour
 
         ApplyFire(cell.fire);
         ApplyPoi(cell.poi);
-        ApplyFirefighter(cell.firefighter);
+        //ApplyFirefighter(cell.agentIds); // <-- antes era cell.firefighter
     }
 
     private void SetWallDefault(WallDirection wall)
@@ -140,8 +141,10 @@ public class TileController : MonoBehaviour
         // poiState == 0 o 2 -> no se activa nada
     }
 
-    private void ApplyFirefighter(bool hasFirefighter)
+    private void ApplyFirefighter(List<int> agentIds)
     {
+        bool hasFirefighter = agentIds != null && agentIds.Count > 0;
+
         if (firefighterObj != null)
         {
             firefighterObj.SetActive(hasFirefighter);

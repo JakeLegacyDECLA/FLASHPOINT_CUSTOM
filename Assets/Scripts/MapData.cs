@@ -6,7 +6,7 @@ public class MapData
 {
     public int width;
     public int height;
-    public List<CellData> cells;
+    public List<CellData> tiles;
 }
 
 [System.Serializable]
@@ -17,7 +17,7 @@ public class CellData
     public WallsData walls;
     public int fire; // 0=empty, 1=smoke, 2=fire
     public int poi;  // 0=none, 1=exist(no revelado), 2=empty(falsa alarma), 3=victim
-    public bool firefighter; // true = hay un bombero parado en este tile
+    public List<int> agentIds;
 
 }
 
@@ -28,4 +28,28 @@ public class WallsData
     public int down;
     public int left;
     public int right;
+}
+
+[System.Serializable]
+public class AgentData
+{
+    public int id;
+    public bool knockdown;
+    public bool victim; // true = está cargando una víctima
+    public int x;
+    public int y;
+    public int ap;
+}
+
+[System.Serializable]
+public class MovementData
+{
+    public int step;
+    public int agentId;
+    public string type; // "move", "chop", etc.
+    public string dir;
+    public int prevX;
+    public int prevY;
+    public int newX;
+    public int newY;
 }

@@ -31,7 +31,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         BuildGrid(data.width, data.height);
-        ApplyCells(data.cells); // <-- línea nueva
+        ApplyCells(data.tiles);
     }
 
     private void BuildGrid(int width, int height)
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 pos = new Vector3(x * tileSize, 0f, -y * tileSize); // <-- cambio: signo negativo en Z
+                Vector3 pos = GetWorldPosition(x, y);
                 GameObject tile = Instantiate(tilePrefab, pos, Quaternion.identity, transform);
                 tile.name = $"Tile_{x}_{y}";
                 tileGrid[x, y] = tile;
@@ -53,7 +53,12 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"Mapa generado: {width} x {height} tiles.");
     }
 
-    // ---- método nuevo ----
+    // Método público para que otros scripts (como AgentManager) calculen la misma posición
+    public Vector3 GetWorldPosition(int x, int y)
+    {
+        return new Vector3(x * tileSize, 0f, -y * tileSize);
+    }
+
     private void ApplyCells(List<CellData> cells)
     {
         if (cells == null) return;
@@ -80,7 +85,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-    // ---- fin método nuevo ----
 
     private void ClearGrid()
     {
@@ -88,5 +92,20 @@ public class MapGenerator : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+        // En MapGenerator.cs — agrega este método nuevo
+    public Vector3 GetTileVisualPosition(int x, int y)
+    {
+        if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
+        {
+            return GetWorldPosition(x, y); // fallback si algo sale mal
+        }
+
+        GameObject tileObj = tileGrid[x, y];
+        if (tileObj == null) return GetWorldPosition(x, y);
+
+        Transform floor = tileObj.transform.Find("Tile"); // el hijo llamado "Tile" (el piso)
+        return floor != null ? floor.position : tileObj.transform.position;
     }
 }

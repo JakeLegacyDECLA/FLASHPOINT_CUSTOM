@@ -1,12 +1,12 @@
 {
-  "turn": 9,
+  "turn": 5,
   "width": 10,
   "height": 8,
-  "buildingDamage": 6,
-  "saved": 4,
+  "buildingDamage": 8,
+  "saved": 3,
   "lost": 2,
   "focus": -1,
-  "cells": [
+  "tiles": [
     {
       "x": 0,
       "y": 0,
@@ -18,7 +18,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -31,7 +31,10 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": [
+        0,
+        1
+      ]
     },
     {
       "x": 0,
@@ -44,7 +47,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -57,7 +60,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -70,7 +73,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -83,7 +86,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -96,7 +99,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 0,
@@ -109,7 +112,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -122,7 +125,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -135,7 +138,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -148,7 +151,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -161,7 +164,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -174,7 +177,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -187,7 +190,7 @@
       },
       "fire": 0,
       "poi": 1,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -200,7 +203,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 1,
@@ -213,7 +216,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -226,7 +229,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -239,7 +242,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -252,7 +255,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -265,7 +268,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -278,7 +281,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -291,7 +294,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -304,7 +307,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 2,
@@ -317,7 +320,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -330,7 +333,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -343,7 +346,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -356,7 +359,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -369,7 +372,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -382,7 +385,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -395,7 +398,9 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": [
+        5
+      ]
     },
     {
       "x": 3,
@@ -408,7 +413,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 3,
@@ -421,7 +426,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -434,7 +439,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -447,7 +452,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -460,7 +465,7 @@
       },
       "fire": 0,
       "poi": 1,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -473,7 +478,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -486,7 +491,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -499,7 +504,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -512,7 +517,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 4,
@@ -525,7 +530,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -538,7 +543,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -551,7 +556,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -564,7 +569,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -577,7 +582,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -590,7 +595,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -603,7 +608,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 5,
@@ -616,7 +621,9 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": [
+        2
+      ]
     },
     {
       "x": 5,
@@ -629,7 +636,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -642,7 +649,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -655,7 +662,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -668,7 +675,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -681,7 +688,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -694,7 +701,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -707,7 +714,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -720,7 +727,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 6,
@@ -733,7 +740,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -746,7 +753,9 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": [
+        3
+      ]
     },
     {
       "x": 7,
@@ -759,7 +768,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -772,7 +781,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -785,7 +794,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -798,7 +807,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -811,7 +820,7 @@
       },
       "fire": 2,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -824,7 +833,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 7,
@@ -837,7 +846,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -850,7 +859,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -863,7 +872,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -876,7 +885,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -889,7 +898,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -902,7 +911,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -915,7 +924,7 @@
       },
       "fire": 0,
       "poi": 1,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -928,7 +937,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 8,
@@ -941,7 +950,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -954,7 +963,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -967,7 +976,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -980,7 +989,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -993,7 +1002,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -1006,7 +1015,9 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": [
+        4
+      ]
     },
     {
       "x": 9,
@@ -1019,7 +1030,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -1032,7 +1043,7 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
     },
     {
       "x": 9,
@@ -1045,7 +1056,79 @@
       },
       "fire": 0,
       "poi": 0,
-      "firefighter": false
+      "agentIds": []
+    }
+  ],
+  "agents": [
+    {
+      "id": 0,
+      "knockdown": false,
+      "victim": false,
+      "x": 0,
+      "y": 1,
+      "ap": 4
+    },
+    {
+      "id": 1,
+      "knockdown": false,
+      "victim": false,
+      "x": 0,
+      "y": 1,
+      "ap": 4
+    },
+    {
+      "id": 2,
+      "knockdown": false,
+      "victim": false,
+      "x": 5,
+      "y": 6,
+      "ap": 4
+    },
+    {
+      "id": 3,
+      "knockdown": true,
+      "victim": false,
+      "x": 7,
+      "y": 0,
+      "ap": 4
+    },
+    {
+      "id": 4,
+      "knockdown": false,
+      "victim": false,
+      "x": 9,
+      "y": 4,
+      "ap": 4
+    },
+    {
+      "id": 5,
+      "knockdown": false,
+      "victim": true,
+      "x": 3,
+      "y": 5,
+      "ap": 4
+    }
+  ],
+  "movements": [
+    {
+      "step": 1,
+      "agentId": 1,
+      "type": "move",
+      "dir": "left",
+      "prevX": 1,
+      "prevY": 1,
+      "newX": 0,
+      "newY": 1
+    },
+    {
+      "step": 2,
+      "agentId": 1,
+      "type": "chop",
+      "dir": "left",
+      "prevX": 0,
+      "prevY": 1,
+      "newX": 0,
+      "newY": 1
     }
   ]
 }
