@@ -62,7 +62,7 @@ public class MovementPlayer : MonoBehaviour
                 yield return PlayMove(agentObj, animator, move);
                 break;
             case "chop":
-                yield return PlayChop(animator);
+                yield return PlayChop(agentObj, animator, move); // <-- ahora pasamos agentObj y move
                 break;
             default:
                 Debug.LogWarning($"Tipo de movimiento no reconocido: {move.type}");
@@ -98,8 +98,15 @@ public class MovementPlayer : MonoBehaviour
         if (animator != null) animator.SetBool(runBoolParam, false);
     }
 
-    private IEnumerator PlayChop(Animator animator)
+    private IEnumerator PlayChop(GameObject agentObj, Animator animator, MovementData move)
     {
+        // Rota al agente para que apunte hacia la dirección indicada antes de disparar
+        Vector3 dir = DirToVector(move.dir);
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            agentObj.transform.rotation = Quaternion.LookRotation(dir);
+        }
+
         if (animator != null) animator.SetTrigger(chopTriggerParam);
         yield return new WaitForSeconds(chopDuration);
     }
@@ -109,5 +116,19 @@ public class MovementPlayer : MonoBehaviour
         Vector3 pos = mapGenerator.GetTileVisualPosition(x, y);
         pos.y += agentManager.heightOffset;
         return pos;
+    }
+
+    private Vector3 DirToVector(string dir)
+    {
+        switch (dir)
+        {
+            case "up":    return Vector3.forward;  // +Z
+            case "down":  return Vector3.back;     // -Z
+            case "left":  return Vector3.left;     // -X
+            case "right": return Vector3.right;    // +X
+            default:
+                Debug.LogWarning($"Dirección de chop no reconocida: {dir}");
+                return Vector3.zero;
+        }
     }
 }

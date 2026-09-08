@@ -1129,6 +1129,16 @@
       "prevY": 0,
       "newX": 9,
       "newY": 5
+    },
+    {
+      "step": 1,
+      "agentId": 0,
+      "type": "chop",
+      "dir": "right",
+      "prevX": 0,
+      "prevY": 1,
+      "newX": 0,
+      "newY": 1
     }
   ]
 }
