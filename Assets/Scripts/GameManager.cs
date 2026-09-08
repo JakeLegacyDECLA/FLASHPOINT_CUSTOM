@@ -7,12 +7,19 @@ public class AgentListWrapper
     public List<AgentData> agents;
 }
 
+[System.Serializable]
+public class MovementListWrapper
+{
+    public List<MovementData> movements;
+}
+
 public class GameManager : MonoBehaviour
 {
     [Header("Referencias")]
     public MapGenerator mapGenerator;
     public HudController hudController;
     public AgentManager agentManager;
+    public MovementPlayer movementPlayer;
 
     [Header("Debug / pruebas")]
     public TextAsset testJson;
@@ -34,6 +41,12 @@ public class GameManager : MonoBehaviour
         if (agentData != null)
         {
             agentManager.ApplyAgents(agentData.agents);
+        }
+
+        MovementListWrapper movementData = JsonUtility.FromJson<MovementListWrapper>(json);
+        if (movementData != null && movementData.movements != null && movementData.movements.Count > 0 && movementPlayer != null)
+        {
+            StartCoroutine(movementPlayer.PlayMovements(movementData.movements));
         }
     }
 }

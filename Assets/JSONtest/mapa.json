@@ -1112,13 +1112,13 @@
   "movements": [
     {
       "step": 1,
-      "agentId": 1,
+      "agentId": 0,
       "type": "move",
-      "dir": "left",
-      "prevX": 1,
+      "dir": "up",
+      "prevX": 0,
       "prevY": 1,
       "newX": 0,
-      "newY": 1
+      "newY": 0
     },
     {
       "step": 2,

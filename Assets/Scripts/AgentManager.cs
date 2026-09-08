@@ -68,4 +68,10 @@ public class AgentManager : MonoBehaviour
 
         instance.transform.position = worldPos;
     }
+
+    public GameObject GetAgentInstance(int agentId)
+    {
+        agentInstances.TryGetValue(agentId, out GameObject instance);
+        return instance;
+    }
 }
