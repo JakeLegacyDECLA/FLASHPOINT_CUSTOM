@@ -1112,23 +1112,23 @@
   "movements": [
     {
       "step": 1,
-      "agentId": 0,
+      "agentId": 3,
       "type": "move",
-      "dir": "up",
-      "prevX": 0,
-      "prevY": 1,
-      "newX": 0,
+      "dir": "right",
+      "prevX": 7,
+      "prevY": 0,
+      "newX": 9,
       "newY": 0
     },
     {
       "step": 2,
-      "agentId": 1,
-      "type": "chop",
-      "dir": "left",
-      "prevX": 0,
-      "prevY": 1,
-      "newX": 0,
-      "newY": 1
+      "agentId": 3,
+      "type": "move",
+      "dir": "down",
+      "prevX": 9,
+      "prevY": 0,
+      "newX": 9,
+      "newY": 5
     }
   ]
 }
