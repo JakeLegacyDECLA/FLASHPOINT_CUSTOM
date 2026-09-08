@@ -1110,5 +1110,15 @@
     }
   ],
   "movements": [
+    {
+      "step": 1,
+      "agentId": 3,
+      "type": "move",
+      "dir": "right",
+      "prevX": 7,
+      "prevY": 0,
+      "newX": 9,
+      "newY": 0
+    }
   ]
 }
