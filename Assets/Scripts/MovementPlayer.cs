@@ -28,18 +28,31 @@ public class MovementPlayer : MonoBehaviour
 
         foreach (var stepGroup in byStep)
         {
-            List<Coroutine> running = new List<Coroutine>();
+            // Solo un agente actúa por step: usamos ese para mover la cámara
+            int activeAgentId = stepGroup.First().agentId;
+            GameObject activeAgentObj = agentManager.GetAgentInstance(activeAgentId);
 
+            if (activeAgentObj != null && CameraController.Instance != null)
+            {
+                CameraController.Instance.FollowAgent(activeAgentObj.transform);
+            }
+
+            List<Coroutine> running = new List<Coroutine>();
             foreach (MovementData move in stepGroup)
             {
                 running.Add(StartCoroutine(PlayOneMovement(move)));
             }
 
-            // Espera a que TODOS los agentes de este step terminen antes de pasar al siguiente
             foreach (Coroutine c in running)
             {
                 yield return c;
             }
+        }
+
+        // Terminó todo el turno: la cámara vuelve a la vista general
+        if (CameraController.Instance != null)
+        {
+            CameraController.Instance.ReturnToOverview();
         }
     }
 
