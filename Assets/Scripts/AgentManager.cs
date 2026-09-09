@@ -13,6 +13,7 @@ public class AgentManager : MonoBehaviour
     public float stackOffsetFraction = 0.3f;
 
     private Dictionary<int, GameObject> agentInstances = new Dictionary<int, GameObject>();
+    private Dictionary<int, AgentData> agentDataById = new Dictionary<int, AgentData>();
 
     public void ApplyAgents(List<AgentData> agents)
     {
@@ -22,6 +23,8 @@ public class AgentManager : MonoBehaviour
 
         foreach (AgentData agent in agents)
         {
+            agentDataById[agent.id] = agent;
+
             var key = (agent.x, agent.y);
             if (!byTile.ContainsKey(key))
             {
@@ -73,5 +76,11 @@ public class AgentManager : MonoBehaviour
     {
         agentInstances.TryGetValue(agentId, out GameObject instance);
         return instance;
+    }
+
+    public AgentData GetAgentData(int agentId) // <-- nuevo
+    {
+        agentDataById.TryGetValue(agentId, out AgentData data);
+        return data;
     }
 }

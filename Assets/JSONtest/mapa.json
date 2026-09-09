@@ -1087,7 +1087,7 @@
     {
       "id": 3,
       "knockdown": true,
-      "victim": false,
+      "victim": true,
       "x": 7,
       "y": 0,
       "ap": 4
@@ -1110,6 +1110,15 @@
     }
   ],
   "movements": [
-    
+    {
+      "step": 1,
+      "agentId": 3,
+      "type": "move",
+      "dir": "left",
+      "prevX": 7,
+      "prevY": 0,
+      "newX": 0,
+      "newY": 0
+    }
   ]
 }
