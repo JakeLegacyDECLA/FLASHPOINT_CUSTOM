@@ -56,7 +56,6 @@ public class TileController : MonoBehaviour
 
         ApplyFire(cell.fire);
         ApplyPoi(cell.poi);
-        //ApplyFirefighter(cell.agentIds); // <-- antes era cell.firefighter
     }
 
     private void SetWallDefault(WallDirection wall)
@@ -138,7 +137,6 @@ public class TileController : MonoBehaviour
                 currentVictimVariant.SetActive(true);
             }
         }
-        // poiState == 0 o 2 -> no se activa nada
     }
 
     private void ApplyFirefighter(List<int> agentIds)

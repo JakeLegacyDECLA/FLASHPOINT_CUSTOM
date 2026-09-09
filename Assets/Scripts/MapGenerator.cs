@@ -53,7 +53,6 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"Mapa generado: {width} x {height} tiles.");
     }
 
-    // Método público para que otros scripts (como AgentManager) calculen la misma posición
     public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x * tileSize, 0f, -y * tileSize);
@@ -94,18 +93,17 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-        // En MapGenerator.cs — agrega este método nuevo
     public Vector3 GetTileVisualPosition(int x, int y)
     {
         if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
         {
-            return GetWorldPosition(x, y); // fallback si algo sale mal
+            return GetWorldPosition(x, y); 
         }
 
         GameObject tileObj = tileGrid[x, y];
         if (tileObj == null) return GetWorldPosition(x, y);
 
-        Transform floor = tileObj.transform.Find("Tile"); // el hijo llamado "Tile" (el piso)
+        Transform floor = tileObj.transform.Find("Tile"); 
         return floor != null ? floor.position : tileObj.transform.position;
     }
 }

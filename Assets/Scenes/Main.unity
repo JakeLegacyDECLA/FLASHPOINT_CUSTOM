@@ -4933,6 +4933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 793875837}
+  - component: {fileID: 793875838}
   m_Layer: 0
   m_Name: PerfilPersonaje
   m_TagString: Untagged
@@ -4956,6 +4957,21 @@ Transform:
   - {fileID: 1407177433}
   m_Father: {fileID: 873839923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793875838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793875836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c1f06ce16578f4b88637531d0a21e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PerfilPersonajeController
+  circuloAvatar: {fileID: 211861685}
+  colorNormal: {r: 0, g: 0.8078432, b: 0.8196079, a: 1}
+  colorVictima: {r: 1, g: 0.647, b: 0, a: 1}
 --- !u!4 &796479489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8385121201471419824, guid: daa7deb9166ef1847a7f2af59e00e0cd, type: 3}
@@ -10869,6 +10885,7 @@ MonoBehaviour:
   chopTriggerParam: Shoot
   moveDuration: 0.5
   chopDuration: 0.6
+  perfilPersonaje: {fileID: 793875838}
 --- !u!4 &1839856829
 Transform:
   m_ObjectHideFlags: 0

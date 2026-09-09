@@ -11,11 +11,14 @@ public class MovementPlayer : MonoBehaviour
 
     [Header("Animator - nombres de parámetros (ajusta si no coinciden)")]
     public string runBoolParam = "IsRunning";   // bool: true mientras camina
-    public string chopTriggerParam = "Shoot";   // trigger: golpear/disparar (chop)
+    public string chopTriggerParam = "Shoot";   // trigger: golpear/disparar 
 
     [Header("Timing")]
-    public float moveDuration = 0.5f; // segundos para cruzar una tile
+    public float moveDuration = 0.5f; 
     public float chopDuration = 0.6f; // segundos que dura la animación de chop
+
+    [Header("UI")]
+    public PerfilPersonajeController perfilPersonaje;
 
     public IEnumerator PlayMovements(List<MovementData> movements)
     {
@@ -28,7 +31,6 @@ public class MovementPlayer : MonoBehaviour
 
         foreach (var stepGroup in byStep)
         {
-            // Solo un agente actúa por step: usamos ese para mover la cámara
             int activeAgentId = stepGroup.First().agentId;
             GameObject activeAgentObj = agentManager.GetAgentInstance(activeAgentId);
 
@@ -36,7 +38,11 @@ public class MovementPlayer : MonoBehaviour
             {
                 CameraController.Instance.FollowAgent(activeAgentObj.transform);
             }
-
+            AgentData activeAgentData = agentManager.GetAgentData(activeAgentId);
+            if (activeAgentData != null && perfilPersonaje != null)
+            {
+                perfilPersonaje.MostrarSurvivor(activeAgentData);
+            }
             List<Coroutine> running = new List<Coroutine>();
             foreach (MovementData move in stepGroup)
             {
@@ -49,7 +55,6 @@ public class MovementPlayer : MonoBehaviour
             }
         }
 
-        // Terminó todo el turno: la cámara vuelve a la vista general
         if (CameraController.Instance != null)
         {
             CameraController.Instance.ReturnToOverview();
@@ -75,7 +80,7 @@ public class MovementPlayer : MonoBehaviour
                 yield return PlayMove(agentObj, animator, move);
                 break;
             case "chop":
-                yield return PlayChop(agentObj, animator, move); // <-- ahora pasamos agentObj y move
+                yield return PlayChop(agentObj, animator, move); 
                 break;
             default:
                 Debug.LogWarning($"Tipo de movimiento no reconocido: {move.type}");
@@ -113,7 +118,6 @@ public class MovementPlayer : MonoBehaviour
 
     private IEnumerator PlayChop(GameObject agentObj, Animator animator, MovementData move)
     {
-        // Rota al agente para que apunte hacia la dirección indicada antes de disparar
         Vector3 dir = DirToVector(move.dir);
         if (dir.sqrMagnitude > 0.0001f)
         {
