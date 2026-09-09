@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController Instance;
 
-    public Vector3 overviewPosition = new Vector3(100, 80, -40);
+    public Vector3 overviewPosition = new Vector3(100, 70, -35);
     public Vector3 overviewEulerAngles = new Vector3(90, 0, 0);
 
     [Header("Seguimiento")]
