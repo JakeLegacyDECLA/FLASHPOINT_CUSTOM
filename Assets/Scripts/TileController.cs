@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -30,6 +31,10 @@ public class TileController : MonoBehaviour
 
     [Header("Bombero (se activa si hay al menos un agentId en la tile)")]
     public GameObject firefighterObj;
+
+    [Header("Animación del zombie")]
+    public string moveSpeedParam = "MoveSpeed";
+    public float walkSpeedValue = 1f;
 
     private GameObject currentVictimVariant;
 
@@ -155,5 +160,40 @@ public class TileController : MonoBehaviour
         {
             firefighterObj.SetActive(hasFirefighter);
         }
+    }
+
+    public IEnumerator PlayZombieArrival(Vector3 fromWorldPos, float walkDuration)
+    {
+        if (zombieObj == null) yield break;
+
+        Vector3 finalLocalPos = zombieObj.transform.localPosition; 
+        Vector3 finalWorldPos = zombieObj.transform.position;
+
+        zombieObj.SetActive(true);
+        zombieObj.transform.position = fromWorldPos;
+
+        Vector3 dir = finalWorldPos - fromWorldPos;
+        dir.y = 0f;
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            zombieObj.transform.rotation = Quaternion.LookRotation(dir);
+        }
+
+        Animator animator = zombieObj.GetComponentInChildren<Animator>();
+        
+        if (animator != null) animator.SetFloat(moveSpeedParam, walkSpeedValue);
+
+        float elapsed = 0f;
+        while (elapsed < walkDuration)
+        {
+            zombieObj.transform.position = Vector3.Lerp(fromWorldPos, finalWorldPos, elapsed / walkDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        zombieObj.transform.position = finalWorldPos;
+        zombieObj.transform.localPosition = finalLocalPos; // asegura que quede exacto en su lugar
+
+        if (animator != null) animator.SetFloat(moveSpeedParam, 0f);
     }
 }
