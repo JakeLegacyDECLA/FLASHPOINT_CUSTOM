@@ -48,7 +48,11 @@ public class HudController : MonoBehaviour
 
     private void UpdateDamage(int damage)
     {
-        if (danioText != null) danioText.text = damage.ToString();
+        if (danioText != null)
+        {
+            danioText.text = (24 - damage).ToString();
+        } 
+
     }
 
     private void UpdateIconGroup(GameObject[] icons, int activeCount)
