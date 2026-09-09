@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a57ffcb7386d2e24fbf2bf3d3c37b159
+guid: afa1bab92e83f9e46b0f3344399db6d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Win_0
+      name: EmpezarDown
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 51
+        y: 138
+        width: 304
+        height: 102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,8 +125,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ef02973708514044bb25166ca903e3d
-      internalID: -196701378
+      spriteID: 405dab4e0bc3c604db0676a069e4270b
+      internalID: 344121955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CreditosDown
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 18
+        width: 307
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841525e9ad9a96e4b9ce49452e37155c
+      internalID: 1897276799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EmpezarUp
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 138
+        width: 304
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf27a8a89247654408eea6ba7018f153
+      internalID: 548534529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CreditosUp
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 16
+        width: 304
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60e6d1117a754c4dbbef7093fd27082
+      internalID: 329770252
       vertices: []
       indices: 
       edges: []
@@ -135,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c244f554fb8ecc4478d17ef01f11d5a8
+    spriteID: 2bb14e7337fd9414786abdae23b2e529
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +211,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Win_0: -196701378
+      CreditosDown: 1897276799
+      CreditosUp: 329770252
+      EmpezarDown: 344121955
+      EmpezarUp: 548534529
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
