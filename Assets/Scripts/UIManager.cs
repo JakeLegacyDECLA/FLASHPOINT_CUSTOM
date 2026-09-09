@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
     public GameObject pauseScreen;
+    public GameObject creditsScreen;
 
     //------------------------------ FUNTIONS ----------------------------
     /*
@@ -79,6 +80,7 @@ public class UIManager : MonoBehaviour
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
         pauseScreen.SetActive(false);
+        creditsScreen.SetActive(false);
 
         switch (estado)
         {
@@ -104,6 +106,10 @@ public class UIManager : MonoBehaviour
                 break;
             case "Pause":
                 pauseScreen.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case "Credits":
+                creditsScreen.SetActive(true);
                 Time.timeScale = 0;
                 break;
         }
@@ -162,4 +168,5 @@ public class UIManager : MonoBehaviour
     public void Win() => Go("Win");
     public void Lose() => Go("Lose");
     public void Pause() => Go("Pause");
+    public void Credits() => Go("Credits");
 }
