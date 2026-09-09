@@ -49,15 +49,23 @@ public class TileController : MonoBehaviour
 
     public void ApplyCellData(CellData cell)
     {
+        ApplyWalls(cell);
+        ApplyFireAndPoi(cell);
+    }
+
+    public void ApplyWalls(CellData cell) // <-- nuevo (antes era parte de ApplyCellData)
+    {
         ApplyWall(up, cell.walls.up);
         ApplyWall(down, cell.walls.down);
         ApplyWall(left, cell.walls.left);
         ApplyWall(right, cell.walls.right);
+    }
 
+    public void ApplyFireAndPoi(CellData cell) // <-- nuevo
+    {
         ApplyFire(cell.fire);
         ApplyPoi(cell.poi);
     }
-
     private void SetWallDefault(WallDirection wall)
     {
         if (wall == null) return;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     public AgentManager agentManager;
     public MovementPlayer movementPlayer;
 
+    [Header("Timing del corte (humo / zombies / POIs)")]
+    public float revealTravelTime = 1f; // tiempo para que la cámara llegue a la celda
+    public float revealHoldTime = 1f;   // tiempo que se queda mostrando lo nuevo
+
     [Header("Debug / pruebas")]
     public TextAsset testJson;
 
@@ -34,19 +39,57 @@ public class GameManager : MonoBehaviour
 
     public void ApplyGameUpdate(string json)
     {
-        mapGenerator.GenerateMap(json);
-        hudController.ApplyGameState(json);
+        StartCoroutine(ApplyGameUpdateSequenced(json));
+    }
 
+    private IEnumerator ApplyGameUpdateSequenced(string json)
+    {
+        // 1. Estructura del mapa: paredes al instante, y calcula qué hay que "revelar" después
+        List<RevealEvent> revealEvents = mapGenerator.GenerateMap(json);
+
+        // 2. Posiciona agentes y actualiza HUD con los datos ya nuevos
         AgentListWrapper agentData = JsonUtility.FromJson<AgentListWrapper>(json);
         if (agentData != null)
         {
             agentManager.ApplyAgents(agentData.agents);
         }
 
+        hudController.ApplyGameState(json);
+
+        // 3. Fase del jugador: la cámara sigue al agente que actúa
         MovementListWrapper movementData = JsonUtility.FromJson<MovementListWrapper>(json);
         if (movementData != null && movementData.movements != null && movementData.movements.Count > 0 && movementPlayer != null)
         {
-            StartCoroutine(movementPlayer.PlayMovements(movementData.movements));
+            yield return StartCoroutine(movementPlayer.PlayMovements(movementData.movements));
+        }
+
+        // 4. Corte: revela humo, zombies y POIs uno por uno
+        yield return StartCoroutine(RevealEnvironmentChanges(revealEvents));
+    }
+
+    private IEnumerator RevealEnvironmentChanges(List<RevealEvent> events)
+    {
+        if (events == null || events.Count == 0) yield break;
+
+        foreach (RevealEvent ev in events)
+        {
+            Vector3 focusPos = mapGenerator.GetTileVisualPosition(ev.x, ev.y);
+
+            if (CameraController.Instance != null)
+            {
+                CameraController.Instance.FocusPoint(focusPos);
+            }
+
+            yield return new WaitForSeconds(revealTravelTime);
+
+            mapGenerator.ApplyCellVisual(ev.cellData);
+
+            yield return new WaitForSeconds(revealHoldTime);
+        }
+
+        if (CameraController.Instance != null)
+        {
+            CameraController.Instance.ReturnToOverview();
         }
     }
 }
