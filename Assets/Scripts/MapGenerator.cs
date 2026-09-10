@@ -125,6 +125,15 @@ public class MapGenerator : MonoBehaviour
         return events.OrderBy(e => (int)e.type).ToList();
     }
 
+    public TileController GetTileController(int x, int y)
+    {
+        if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
+            return null;
+
+        GameObject tileObj = tileGrid[x, y];
+        return tileObj != null ? tileObj.GetComponent<TileController>() : null;
+    }
+
     public void ApplyCellVisual(CellData cell)
     {
         if (tileGrid == null) return;
