@@ -14,15 +14,24 @@ public class MovementPlayer : MonoBehaviour
     public string chopTriggerParam = "Shoot";   // trigger: golpear/disparar 
 
     [Header("Timing")]
-    public float moveDuration = 0.5f; 
+    public float moveDuration = 0.5f;
     public float chopDuration = 0.6f; // segundos que dura la animación de chop
+    public float victimHoldTime = 0.8f; // segundos que la víctima se queda visible antes de absorberse
 
     [Header("UI")]
     public PerfilPersonajeController perfilPersonaje;
 
+    [Header("Debug: clic derecho en este componente > 'Debug: reveal de víctima'")]
+    public int debugVictimX = 0;
+    public int debugVictimY = 0;
+    public int debugVictimAgentId = 0;
+
+    private List<MovementData> currentMovements;
+
     public IEnumerator PlayMovements(List<MovementData> movements)
     {
         if (movements == null || movements.Count == 0) yield break;
+        currentMovements = movements;
 
         var byStep = movements
             .Where(m => m != null)
@@ -82,6 +91,9 @@ public class MovementPlayer : MonoBehaviour
             case "chop":
                 yield return PlayChop(agentObj, animator, move);
                 break;
+            case "turnOver":
+                yield return PlayTurnOver(agentObj, move);
+                break;
             case "extinguishFire":   
             case "extinguishSmoke":  
                 yield return PlayExtinguish(agentObj, animator, move);
@@ -90,6 +102,54 @@ public class MovementPlayer : MonoBehaviour
                 Debug.LogWarning($"Tipo de movimiento no reconocido: {move.type}");
                 break;
         }
+    }
+
+    // "turnOver" = el bombero reveló el POI de su celda. Python ya resolvió si
+    // era víctima o falsa alarma antes de exportar el turno, así que se deduce
+    // del resultado: el agente terminó el turno cargando víctima, o la salvó
+    // en un paso posterior de este mismo turno. Falsa alarma -> nada que mostrar.
+    private IEnumerator PlayTurnOver(GameObject agentObj, MovementData move)
+    {
+        AgentData data = agentManager.GetAgentData(move.agentId);
+        bool savedLater = currentMovements != null && currentMovements.Any(m =>
+            m != null && m.agentId == move.agentId && m.type == "saveVictim" && m.step > move.step);
+        bool isVictim = (data != null && data.victim) || savedLater;
+        if (!isVictim) yield break;
+
+        // El agente puede seguir moviéndose después del turnOver en el mismo
+        // turno, y ApplyAgents ya lo dejó en su posición final: se ancla a la
+        // celda del POI mientras dura la animación.
+        agentObj.transform.position = GetAgentWorldPosition(move.prevX, move.prevY);
+
+        yield return PlayVictimReveal(move.prevX, move.prevY, agentObj.transform, data);
+    }
+
+    private IEnumerator PlayVictimReveal(int x, int y, Transform agentTransform, AgentData data)
+    {
+        TileController tile = mapGenerator.GetTileController(x, y);
+        if (tile == null)
+        {
+            Debug.LogWarning($"No hay TileController en ({x},{y}) para revelar la víctima.");
+            yield break;
+        }
+
+        yield return tile.PlayVictimAppear();
+        yield return new WaitForSeconds(victimHoldTime);
+
+        Vector3 absorbTarget = agentTransform != null ? agentTransform.position : GetAgentWorldPosition(x, y);
+        yield return tile.PlayVictimAbsorb(absorbTarget);
+
+        if (data != null && perfilPersonaje != null)
+        {
+            perfilPersonaje.MostrarSurvivor(data);
+        }
+    }
+
+    [ContextMenu("Debug: reveal de víctima")]
+    private void DebugPlayVictimReveal()
+    {
+        GameObject agentObj = agentManager != null ? agentManager.GetAgentInstance(debugVictimAgentId) : null;
+        StartCoroutine(PlayVictimReveal(debugVictimX, debugVictimY, agentObj != null ? agentObj.transform : null, null));
     }
 
     private IEnumerator PlayMove(GameObject agentObj, Animator animator, MovementData move)

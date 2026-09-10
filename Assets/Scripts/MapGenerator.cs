@@ -175,11 +175,7 @@ public class MapGenerator : MonoBehaviour
 
     public IEnumerator PlayZombiePropagation(RevealEvent ev, float walkDuration)
     {
-        if (tileGrid == null) yield break;
-        if (ev.x < 0 || ev.x >= tileGrid.GetLength(0) || ev.y < 0 || ev.y >= tileGrid.GetLength(1)) yield break;
-
-        GameObject tileObj = tileGrid[ev.x, ev.y];
-        TileController controller = tileObj != null ? tileObj.GetComponent<TileController>() : null;
+        TileController controller = GetTileController(ev.x, ev.y);
         if (controller == null) yield break;
 
         Vector3 fromWorldPos = (ev.sourceX >= 0)
@@ -187,6 +183,15 @@ public class MapGenerator : MonoBehaviour
             : GetTileVisualPosition(ev.x, ev.y);
 
         yield return controller.PlayZombieArrival(fromWorldPos, walkDuration);
+    }
+
+    public TileController GetTileController(int x, int y)
+    {
+        if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
+            return null;
+
+        GameObject tileObj = tileGrid[x, y];
+        return tileObj != null ? tileObj.GetComponent<TileController>() : null;
     }
 
     public void ApplyCellVisual(CellData cell)
