@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
 
         // 4. Corte: revela humo, zombies y POIs uno por uno
         yield return StartCoroutine(RevealEnvironmentChanges(revealEvents));
-        yield return StartCoroutine(RevealEnvironmentChanges(revealEvents));
 
         mapGenerator.ApplyAllPendingCells(); 
 

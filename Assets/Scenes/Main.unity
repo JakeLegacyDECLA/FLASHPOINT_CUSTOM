@@ -6452,7 +6452,8 @@ MonoBehaviour:
   movementPlayer: {fileID: 1839856828}
   revealTravelTime: 1
   revealHoldTime: 1
-  testJson: {fileID: 4900000, guid: a5a98cab2468cc145b3fcf98457819c0, type: 3}
+  zombieWalkDuration: 1
+  testJson: {fileID: 0}
 --- !u!4 &966425711
 Transform:
   m_ObjectHideFlags: 0
@@ -9589,6 +9590,10 @@ MonoBehaviour:
   - {fileID: 562339565}
   - {fileID: 1562618101}
   firefighterObj: {fileID: 0}
+  victimAppearDuration: 5
+  victimAbsorbDuration: 5
+  moveSpeedParam: MoveSpeed
+  walkSpeedValue: 1
 --- !u!4 &1390414791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 653449484278502468, guid: c61feb346f2088c48b5bbf17c14dfb22, type: 3}
@@ -12268,7 +12273,11 @@ MonoBehaviour:
   chopTriggerParam: Shoot
   moveDuration: 0.5
   chopDuration: 0.6
+  victimHoldTime: 0.8
   perfilPersonaje: {fileID: 793875838}
+  debugVictimX: 0
+  debugVictimY: 0
+  debugVictimAgentId: 0
 --- !u!4 &1839856829
 Transform:
   m_ObjectHideFlags: 0
