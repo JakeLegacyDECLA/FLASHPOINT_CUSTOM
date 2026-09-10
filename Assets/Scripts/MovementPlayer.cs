@@ -80,7 +80,11 @@ public class MovementPlayer : MonoBehaviour
                 yield return PlayMove(agentObj, animator, move);
                 break;
             case "chop":
-                yield return PlayChop(agentObj, animator, move); 
+                yield return PlayChop(agentObj, animator, move);
+                break;
+            case "extinguishFire":   
+            case "extinguishSmoke":  
+                yield return PlayExtinguish(agentObj, animator, move);
                 break;
             default:
                 Debug.LogWarning($"Tipo de movimiento no reconocido: {move.type}");
@@ -146,6 +150,38 @@ public class MovementPlayer : MonoBehaviour
             default:
                 Debug.LogWarning($"Dirección de chop no reconocida: {dir}");
                 return Vector3.zero;
+        }
+    }
+
+    private IEnumerator PlayExtinguish(GameObject agentObj, Animator animator, MovementData move)
+    {
+        Vector3 dir = DirToVector(move.dir);
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            agentObj.transform.rotation = Quaternion.LookRotation(dir);
+        }
+
+        if (animator != null) animator.SetTrigger(chopTriggerParam);
+
+        yield return new WaitForSeconds(chopDuration);
+
+        // El zombie muere / se hace humo justo cuando termina el disparo
+        (int tx, int ty) = GetTargetCell(move.prevX, move.prevY, move.dir);
+        if (mapGenerator.TryConsumePendingCell(tx, ty, out CellData cellData))
+        {
+            mapGenerator.ApplyCellVisual(cellData);
+        }
+    }
+
+    private (int x, int y) GetTargetCell(int fromX, int fromY, string dir)
+    {
+        switch (dir)
+        {
+            case "up":    return (fromX, fromY - 1);
+            case "down":  return (fromX, fromY + 1);
+            case "left":  return (fromX - 1, fromY);
+            case "right": return (fromX + 1, fromY);
+            default:      return (fromX, fromY);
         }
     }
 }

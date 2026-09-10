@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
         following = true;
     }
 
-    public void FocusPoint(Vector3 worldPos) // <-- nuevo
+    public void FocusPoint(Vector3 worldPos) 
     {
         fixedFocusPoint = new Vector3(worldPos.x, followHeight, worldPos.z);
         usingFixedPoint = true;
