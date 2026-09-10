@@ -143,45 +143,13 @@ public class MapGenerator : MonoBehaviour
         return events.OrderBy(e => (int)e.type).ToList();
     }
 
-    private (int x, int y) FindAdjacentZombie(CellData cell) // <-- firma cambiada
+    public TileController GetTileController(int x, int y)
     {
-        var dirs = new (int dx, int dy, int wallState)[]
-        {
-            (0, -1, cell.walls.up),
-            (0, 1, cell.walls.down),
-            (-1, 0, cell.walls.left),
-            (1, 0, cell.walls.right),
-        };
+        if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
+            return null;
 
-        foreach (var (dx, dy, wallState) in dirs)
-        {
-            bool pasable = wallState == 0 || wallState == 3; // libre o puerta abierta
-            if (!pasable) continue;
-
-            int nx = cell.x + dx, ny = cell.y + dy;
-            if (previousCells.TryGetValue((nx, ny), out CellData neighborPrev) && neighborPrev.fire == 2)
-            {
-                return (nx, ny);
-            }
-        }
-
-        return (-1, -1); // no hay vecino válido: PlayZombiePropagation hará fallback a aparecer en su lugar
-    }
-
-    public IEnumerator PlayZombiePropagation(RevealEvent ev, float walkDuration)
-    {
-        if (tileGrid == null) yield break;
-        if (ev.x < 0 || ev.x >= tileGrid.GetLength(0) || ev.y < 0 || ev.y >= tileGrid.GetLength(1)) yield break;
-
-        GameObject tileObj = tileGrid[ev.x, ev.y];
-        TileController controller = tileObj != null ? tileObj.GetComponent<TileController>() : null;
-        if (controller == null) yield break;
-
-        Vector3 fromWorldPos = (ev.sourceX >= 0)
-            ? GetTileVisualPosition(ev.sourceX, ev.sourceY)
-            : GetTileVisualPosition(ev.x, ev.y);
-
-        yield return controller.PlayZombieArrival(fromWorldPos, walkDuration);
+        GameObject tileObj = tileGrid[x, y];
+        return tileObj != null ? tileObj.GetComponent<TileController>() : null;
     }
 
     public void ApplyCellVisual(CellData cell)
