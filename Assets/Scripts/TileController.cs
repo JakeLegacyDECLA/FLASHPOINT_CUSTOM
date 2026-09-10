@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -36,6 +35,10 @@ public class TileController : MonoBehaviour
     [Header("Animación de víctima revelada (turnOver)")]
     public float victimAppearDuration = 5f;
     public float victimAbsorbDuration = 5f;
+
+    [Header("Animación del zombie")]
+    public string moveSpeedParam = "MoveSpeed";
+    public float walkSpeedValue = 1f;
 
     private GameObject currentVictimVariant;
 
