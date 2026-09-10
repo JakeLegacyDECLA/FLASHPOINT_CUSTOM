@@ -45,10 +45,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ApplyGameUpdateSequenced(string json)
     {
-        // 1. Estructura del mapa: paredes al instante, y calcula qué hay que "revelar" después
         List<RevealEvent> revealEvents = mapGenerator.GenerateMap(json);
 
-        // 2. Posiciona agentes y actualiza HUD con los datos ya nuevos
         AgentListWrapper agentData = JsonUtility.FromJson<AgentListWrapper>(json);
         if (agentData != null)
         {
@@ -66,6 +64,10 @@ public class GameManager : MonoBehaviour
 
         // 4. Corte: revela humo, zombies y POIs uno por uno
         yield return StartCoroutine(RevealEnvironmentChanges(revealEvents));
+        yield return StartCoroutine(RevealEnvironmentChanges(revealEvents));
+
+        mapGenerator.ApplyAllPendingCells(); 
+
     }
 
     private IEnumerator RevealEnvironmentChanges(List<RevealEvent> events)

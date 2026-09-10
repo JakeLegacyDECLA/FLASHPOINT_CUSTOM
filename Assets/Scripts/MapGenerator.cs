@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour
 
     private GameObject[,] tileGrid;
     private Dictionary<(int, int), CellData> previousCells = new Dictionary<(int, int), CellData>();
+    private Dictionary<(int, int), CellData> pendingExtinguish = new Dictionary<(int, int), CellData>();
 
     void Start()
     {
@@ -33,14 +34,14 @@ public class MapGenerator : MonoBehaviour
             return new List<RevealEvent>();
         }
 
-        bool esPrimeraGeneracion = (tileGrid == null); // <-- nuevo
+        bool esPrimeraGeneracion = (tileGrid == null);
 
         if (esPrimeraGeneracion)
         {
             BuildGrid(data.width, data.height);
         }
 
-        return ApplyCells(data.tiles, esPrimeraGeneracion); // <-- nuevo parámetro
+        return ApplyCells(data.tiles, esPrimeraGeneracion);
     }
 
     private void BuildGrid(int width, int height)
@@ -97,7 +98,6 @@ public class MapGenerator : MonoBehaviour
 
             if (esPrimeraGeneracion)
             {
-                // Turno inicial: todo aparece de una vez, sin corte ni zombies caminando
                 controller.ApplyFireAndPoi(cell);
                 previousCells[key] = cell;
                 continue;
@@ -110,10 +110,11 @@ public class MapGenerator : MonoBehaviour
             bool esHumoNuevo   = cell.fire == 1 && prevFire != 1;
             bool esZombieNuevo = cell.fire == 2 && prevFire != 2;
             bool esPoiNuevo    = cell.poi != 0 && cell.poi != prevPoi;
+            bool esExtincion   = prevFire >= 1 && cell.fire < prevFire;
 
             if (esZombieNuevo && prevFire == 0)
             {
-                (int sx, int sy) = FindAdjacentZombie(cell); // <-- ahora recibe la celda completa
+                (int sx, int sy) = FindAdjacentZombie(cell);
                 events.Add(new RevealEvent
                 {
                     x = cell.x, y = cell.y, type = RevealType.Zombie, cellData = cell,
@@ -131,6 +132,10 @@ public class MapGenerator : MonoBehaviour
             else if (esPoiNuevo)
             {
                 events.Add(new RevealEvent { x = cell.x, y = cell.y, type = RevealType.Poi, cellData = cell });
+            }
+            else if (esExtincion)
+            {
+                pendingExtinguish[key] = cell;
             }
             else
             {
@@ -155,7 +160,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach (var (dx, dy, wallState) in dirs)
         {
-            bool pasable = wallState == 0 || wallState == 3; // libre o puerta abierta
+            bool pasable = wallState == 0 || wallState == 3;
             if (!pasable) continue;
 
             int nx = cell.x + dx, ny = cell.y + dy;
@@ -165,7 +170,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        return (-1, -1); // no hay vecino válido: PlayZombiePropagation hará fallback a aparecer en su lugar
+        return (-1, -1);
     }
 
     public IEnumerator PlayZombiePropagation(RevealEvent ev, float walkDuration)
@@ -197,6 +202,27 @@ public class MapGenerator : MonoBehaviour
         GameObject tileObj = tileGrid[cell.x, cell.y];
         TileController controller = tileObj != null ? tileObj.GetComponent<TileController>() : null;
         if (controller != null) controller.ApplyFireAndPoi(cell);
+    }
+
+    public bool TryConsumePendingCell(int x, int y, out CellData cell)
+    {
+        if (pendingExtinguish.TryGetValue((x, y), out cell))
+        {
+            pendingExtinguish.Remove((x, y));
+            return true;
+        }
+        cell = null;
+        return false;
+    }
+
+    public void ApplyAllPendingCells()
+    {
+        if (tileGrid == null) return;
+        foreach (var kvp in pendingExtinguish)
+        {
+            ApplyCellVisual(kvp.Value);
+        }
+        pendingExtinguish.Clear();
     }
 
     private void ClearGrid()
