@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
     public MovementPlayer movementPlayer;
 
     [Header("Timing del corte (humo / zombies / POIs)")]
-    public float revealTravelTime = 1f; // tiempo para que la cámara llegue a la celda
-    public float revealHoldTime = 1f;   // tiempo que se queda mostrando lo nuevo
+    public float revealTravelTime = 1f;   // tiempo para que la cámara llegue a la celda
+    public float revealHoldTime = 1f;     // tiempo que se queda mostrando lo nuevo
+    public float zombieWalkDuration = 1f; // tiempo que tarda el zombie en caminar hasta su celda
 
     [Header("Debug / pruebas")]
     public TextAsset testJson;
@@ -82,7 +83,16 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(revealTravelTime);
 
-            mapGenerator.ApplyCellVisual(ev.cellData);
+            bool esPropagacionDeZombie = ev.type == RevealType.Zombie && ev.sourceX >= 0;
+
+            if (esPropagacionDeZombie)
+            {
+                yield return mapGenerator.PlayZombiePropagation(ev, zombieWalkDuration);
+            }
+            else
+            {
+                mapGenerator.ApplyCellVisual(ev.cellData);
+            }
 
             yield return new WaitForSeconds(revealHoldTime);
         }

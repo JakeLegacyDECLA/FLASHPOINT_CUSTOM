@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -30,6 +32,10 @@ public class TileController : MonoBehaviour
 
     [Header("Bombero (se activa si hay al menos un agentId en la tile)")]
     public GameObject firefighterObj;
+
+    [Header("Animación de víctima revelada (turnOver)")]
+    public float victimAppearDuration = 5f;
+    public float victimAbsorbDuration = 5f;
 
     private GameObject currentVictimVariant;
 
@@ -147,6 +153,76 @@ public class TileController : MonoBehaviour
         }
     }
 
+    // Hace aparecer una variante de víctima al azar en esta celda, creciendo
+    // desde escala 0 hasta su tamaño real. Se usa cuando un bombero revela
+    // un POI que resultó ser víctima (movimiento "turnOver").
+    public IEnumerator PlayVictimAppear()
+    {
+        if (poiUnknownObj != null) poiUnknownObj.SetActive(false);
+        SetAllVictimVariantsInactive();
+
+        if (poiVictimVariants == null || poiVictimVariants.Length == 0) yield break;
+
+        GameObject target = poiVictimVariants[Random.Range(0, poiVictimVariants.Length)];
+        if (target == null) yield break;
+        currentVictimVariant = target;
+
+        // Las variantes son props estáticos: si el prefab trae scripts de
+        // locomoción/física de su asset original (CharacterController,
+        // controladores de input, demos), se apagan para que no muevan el
+        // modelo ni lancen errores al activarse.
+        foreach (MonoBehaviour script in target.GetComponentsInChildren<MonoBehaviour>(true)) script.enabled = false;
+        foreach (CharacterController cc in target.GetComponentsInChildren<CharacterController>(true)) cc.enabled = false;
+
+        Transform t = target.transform;
+        Vector3 originalScale = t.localScale;
+
+        t.localScale = Vector3.zero;
+        target.SetActive(true);
+        Debug.Log($"[TileController] Víctima '{target.name}' en {name}: activeInHierarchy={target.activeInHierarchy}, escala final={originalScale}");
+
+        float elapsed = 0f;
+        while (elapsed < victimAppearDuration)
+        {
+            if (target == null) yield break;
+            t.localScale = Vector3.Lerp(Vector3.zero, originalScale, elapsed / victimAppearDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        if (target != null) t.localScale = originalScale;
+    }
+
+    // "Absorbe" la víctima visible hacia targetWorldPos (el bombero que la
+    // rescató): se encoge y se desplaza hasta ahí, y al terminar se desactiva
+    // dejando su posición/escala local como estaban para el próximo uso.
+    public IEnumerator PlayVictimAbsorb(Vector3 targetWorldPos)
+    {
+        GameObject target = currentVictimVariant;
+        if (target == null) yield break;
+
+        Transform t = target.transform;
+        Vector3 originalLocalPos = t.localPosition;
+        Vector3 originalScale = t.localScale;
+        Vector3 startPos = t.position;
+
+        float elapsed = 0f;
+        while (elapsed < victimAbsorbDuration)
+        {
+            if (target == null) yield break;
+            float f = elapsed / victimAbsorbDuration;
+            t.position = Vector3.Lerp(startPos, targetWorldPos, f);
+            t.localScale = Vector3.Lerp(originalScale, Vector3.zero, f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (target == null) yield break;
+        target.SetActive(false);
+        t.localPosition = originalLocalPos;
+        t.localScale = originalScale;
+        if (currentVictimVariant == target) currentVictimVariant = null;
+    }
+
     private void ApplyFirefighter(List<int> agentIds)
     {
         bool hasFirefighter = agentIds != null && agentIds.Count > 0;
@@ -155,5 +231,40 @@ public class TileController : MonoBehaviour
         {
             firefighterObj.SetActive(hasFirefighter);
         }
+    }
+
+    public IEnumerator PlayZombieArrival(Vector3 fromWorldPos, float walkDuration)
+    {
+        if (zombieObj == null) yield break;
+
+        Vector3 finalLocalPos = zombieObj.transform.localPosition; 
+        Vector3 finalWorldPos = zombieObj.transform.position;
+
+        zombieObj.SetActive(true);
+        zombieObj.transform.position = fromWorldPos;
+
+        Vector3 dir = finalWorldPos - fromWorldPos;
+        dir.y = 0f;
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            zombieObj.transform.rotation = Quaternion.LookRotation(dir);
+        }
+
+        Animator animator = zombieObj.GetComponentInChildren<Animator>();
+        
+        if (animator != null) animator.SetFloat(moveSpeedParam, walkSpeedValue);
+
+        float elapsed = 0f;
+        while (elapsed < walkDuration)
+        {
+            zombieObj.transform.position = Vector3.Lerp(fromWorldPos, finalWorldPos, elapsed / walkDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        zombieObj.transform.position = finalWorldPos;
+        zombieObj.transform.localPosition = finalLocalPos; // asegura que quede exacto en su lugar
+
+        if (animator != null) animator.SetFloat(moveSpeedParam, 0f);
     }
 }

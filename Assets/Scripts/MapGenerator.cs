@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,12 +33,14 @@ public class MapGenerator : MonoBehaviour
             return new List<RevealEvent>();
         }
 
-        if (tileGrid == null) // solo se construye la primera vez
+        bool esPrimeraGeneracion = (tileGrid == null); // <-- nuevo
+
+        if (esPrimeraGeneracion)
         {
             BuildGrid(data.width, data.height);
         }
 
-        return ApplyCells(data.tiles);
+        return ApplyCells(data.tiles, esPrimeraGeneracion); // <-- nuevo parámetro
     }
 
     private void BuildGrid(int width, int height)
@@ -65,7 +68,7 @@ public class MapGenerator : MonoBehaviour
         return new Vector3(x * tileSize, 0f, -y * tileSize);
     }
 
-    private List<RevealEvent> ApplyCells(List<CellData> cells)
+    private List<RevealEvent> ApplyCells(List<CellData> cells, bool esPrimeraGeneracion)
     {
         List<RevealEvent> events = new List<RevealEvent>();
         if (cells == null) return events;
@@ -88,10 +91,18 @@ public class MapGenerator : MonoBehaviour
                 continue;
             }
 
-            // Las paredes se aplican siempre al instante, no son parte del "corte"
             controller.ApplyWalls(cell);
 
             var key = (cell.x, cell.y);
+
+            if (esPrimeraGeneracion)
+            {
+                // Turno inicial: todo aparece de una vez, sin corte ni zombies caminando
+                controller.ApplyFireAndPoi(cell);
+                previousCells[key] = cell;
+                continue;
+            }
+
             previousCells.TryGetValue(key, out CellData prevCell);
             int prevFire = prevCell != null ? prevCell.fire : 0;
             int prevPoi = prevCell != null ? prevCell.poi : 0;
@@ -100,7 +111,16 @@ public class MapGenerator : MonoBehaviour
             bool esZombieNuevo = cell.fire == 2 && prevFire != 2;
             bool esPoiNuevo    = cell.poi != 0 && cell.poi != prevPoi;
 
-            if (esHumoNuevo)
+            if (esZombieNuevo && prevFire == 0)
+            {
+                (int sx, int sy) = FindAdjacentZombie(cell); // <-- ahora recibe la celda completa
+                events.Add(new RevealEvent
+                {
+                    x = cell.x, y = cell.y, type = RevealType.Zombie, cellData = cell,
+                    sourceX = sx, sourceY = sy
+                });
+            }
+            else if (esHumoNuevo)
             {
                 events.Add(new RevealEvent { x = cell.x, y = cell.y, type = RevealType.Smoke, cellData = cell });
             }
@@ -114,15 +134,22 @@ public class MapGenerator : MonoBehaviour
             }
             else
             {
-                // Nada nuevo que revelar aquí: se aplica normal, sin esperar al corte
                 controller.ApplyFireAndPoi(cell);
             }
 
             previousCells[key] = cell;
         }
 
-        // Orden del corte: primero humo, luego zombies, luego POIs
         return events.OrderBy(e => (int)e.type).ToList();
+    }
+
+    public TileController GetTileController(int x, int y)
+    {
+        if (tileGrid == null || x < 0 || x >= tileGrid.GetLength(0) || y < 0 || y >= tileGrid.GetLength(1))
+            return null;
+
+        GameObject tileObj = tileGrid[x, y];
+        return tileObj != null ? tileObj.GetComponent<TileController>() : null;
     }
 
     public void ApplyCellVisual(CellData cell)
